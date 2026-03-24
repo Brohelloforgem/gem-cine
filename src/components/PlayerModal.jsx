@@ -112,8 +112,8 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
   // Build Player URL with options
   const getPlayerUrl = () => {
     let baseUrl = movie.mediaType === 'tv' 
-      ? `https://www.vidking.net/embed/tv/${movie.id}/${selectedSeason}/${currentEpNum}`
-      : `https://www.vidking.net/embed/movie/${movie.id}`;
+      ? `https://vidking.org/embed/tv?tmdb=${movie.id}&season=${selectedSeason}&e=${currentEpNum}`
+      : `https://vidking.org/embed/movie?tmdb=${movie.id}`;
 
     const url = new URL(baseUrl);
     
@@ -364,7 +364,11 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
                   <div className="pm-stills">
                     {details.stills.map((s, i) => (
                       <div key={i} className="pm-still">
-                        <img src={s.url} alt={`Still ${i + 1}`} loading="lazy" />
+                        <img
+                          src={s.url || 'https://via.placeholder.com/1280x720?text=No+Still'}
+                          alt={`Still ${i + 1}`}
+                          loading="lazy"
+                        />
                         <div className="pm-still__hover">▶</div>
                       </div>
                     ))}
@@ -384,7 +388,11 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
                   <div className="pm-similar__grid">
                     {details.similarItems.map(item => (
                       <div key={item.id} className="pm-sim-card">
-                        <img src={item.poster} alt={item.title} loading="lazy" />
+                        <img
+                          src={item.poster || 'https://via.placeholder.com/500x750?text=No+Poster'}
+                          alt={item.title}
+                          loading="lazy"
+                        />
                         <p>{item.title}</p>
                       </div>
                     ))}
@@ -516,7 +524,7 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
                     <li key={actor.id} className="pm-cast-item">
                       <div className="pm-cast-avatar">
                         {actor.avatar
-                          ? <img src={actor.avatar} alt={actor.name} />
+                          ? <img src={actor.avatar} alt={actor.name} loading="lazy" />
                           : <span>{actor.name.slice(0, 2).toUpperCase()}</span>
                         }
                       </div>

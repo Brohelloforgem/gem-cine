@@ -124,7 +124,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 0 80px 40px;
+  padding: 0 clamp(20px, 5vw, 80px) 40px;
   max-width: 760px;
 }
 
@@ -237,7 +237,7 @@
 .pm-tabs {
   display: flex;
   border-bottom: 1px solid rgba(201, 168, 76, 0.12);
-  padding: 0 80px;
+  padding: 0 clamp(20px, 5vw, 80px);
   background: var(--bg-primary);
   position: sticky;
   top: 0;
@@ -276,7 +276,7 @@
 
 /* Left column */
 .pm-left {
-  padding: 32px 40px 60px 80px;
+  padding: 32px 40px 60px clamp(20px, 5vw, 80px);
   overflow-y: auto;
   border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
@@ -308,6 +308,20 @@
   aspect-ratio: 16 / 9;
   border: none;
   display: block;
+}
+
+@media (max-width: 768px) {
+  .pm-body {
+    grid-template-columns: 1fr;
+  }
+  .pm-sidebar {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-left: clamp(20px, 5vw, 80px);
+  }
+  .pm-left {
+    padding-right: clamp(20px, 5vw, 80px);
+  }
 }
 
 .pm-player-actions {

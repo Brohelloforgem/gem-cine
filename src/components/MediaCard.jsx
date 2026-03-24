@@ -20,8 +20,8 @@ export default function MediaCard({ item, onPlay, index = 0 }) {
       <div className="mcard__poster-wrap">
         <img
           className="mcard__poster"
-          src={item.poster}
-          alt={item.title}
+          src={item.poster || 'https://via.placeholder.com/500x750?text=No+Poster'}
+          alt={item.title || 'Media Poster'}
           loading="lazy"
         />
         <div className="mcard__overlay">
@@ -40,10 +40,10 @@ export default function MediaCard({ item, onPlay, index = 0 }) {
         <p className="mcard__genre">
           {item.mediaType === 'tv' ? 'TV Series' : 'Movie'}
         </p>
-        <h4 className="mcard__title">{item.title}</h4>
+        <h4 className="mcard__title">{item.title || 'Untitled'}</h4>
         <span className="mcard__rating">
           <span className="mcard__star">★</span>
-          {item.rating?.toFixed(1)}
+          {item.rating ? item.rating.toFixed(1) : '0.0'}
         </span>
       </div>
     </div>
