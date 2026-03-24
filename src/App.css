@@ -1,0 +1,23 @@
+/* ===== APP LAYOUT ===== */
+.app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.app-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Non-hero page padding */
+.page-content {
+  padding-top: var(--navbar-h);
+  min-height: 100vh;
+  padding-bottom: 8rem;
+}
+
+/* Carousels section below the hero */
+.carousels-section {
+  padding-top: 3rem;
+  padding-bottom: 14rem; /* room for BottomStrip */
+}

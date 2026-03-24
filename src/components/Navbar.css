@@ -1,0 +1,144 @@
+/* ===== NAVBAR ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  z-index: 1000;
+  transition: var(--transition-smooth);
+  background: transparent;
+}
+
+.navbar--scrolled {
+  background: rgba(13, 11, 10, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+}
+
+/* Logo */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.navbar__gem {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 8px rgba(201, 168, 76, 0.6));
+}
+
+.navbar__name {
+  font-family: var(--font-nav);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+}
+
+/* Center links */
+.navbar__links {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.navbar__item a {
+  font-family: var(--font-nav);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+  position: relative;
+  padding-bottom: 6px;
+}
+
+.navbar__item a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent-gold);
+  transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.navbar__item a:hover {
+  color: var(--text-primary);
+}
+
+.navbar__item--active a {
+  color: var(--accent-gold);
+}
+
+.navbar__item--active a::after {
+  width: 100%;
+}
+
+/* Right actions */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.navbar__icon-btn {
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  transition: color 0.2s;
+  padding: 4px 8px;
+}
+
+.navbar__icon-btn:hover {
+  color: var(--accent-gold);
+}
+
+.navbar__search-input {
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid var(--accent-gold);
+  border-radius: 999px;
+  padding: 6px 16px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  outline: none;
+  width: 220px;
+  letter-spacing: 0.04em;
+}
+
+.navbar__search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Hamburger */
+.navbar__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.navbar__hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--text-muted);
+  transition: background 0.2s;
+}
+
+.navbar__hamburger:hover span {
+  background: var(--accent-gold);
+}

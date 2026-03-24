@@ -1,0 +1,164 @@
+/* =========================================
+   GEM CINE — Global Design System
+   Style: Cinematic Dark Luxury / Editorial
+   ========================================= */
+
+:root {
+  /* Colors */
+  --bg-primary:        #0D0B0A;
+  --bg-secondary:      #131110;
+  --bg-card:           rgba(15, 12, 9, 0.85);
+  --text-primary:      #F5F0E8;
+  --text-muted:        #8A7F72;
+  --accent-gold:       #C9A84C;
+  --accent-parchment:  #E8D5A3;
+  --glass-bg:          rgba(15, 12, 9, 0.85);
+  --glass-blur:        blur(24px);
+  --glass-border:      rgba(201, 168, 76, 0.2);
+
+  /* Typography */
+  --font-display:      'Playfair Display', Georgia, serif;
+  --font-nav:          'Cormorant Garamond', serif;
+  --font-mono:         'DM Mono', 'Courier New', monospace;
+
+  /* Motion */
+  --transition-smooth: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-quick:  all 0.2s ease;
+
+  /* Layout */
+  --sidebar-w:         48px;
+  --navbar-h:          70px;
+  --radius-sm:         4px;
+  --radius-md:         8px;
+  --radius-lg:         16px;
+}
+
+/* Reset */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-mono);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition-quick);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+img { display: block; max-width: 100%; }
+
+/* ===== UTILITY CLASSES ===== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 80px;
+}
+
+.gold-text { color: var(--accent-gold); }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold);
+  border-radius: 2px;
+}
+
+/* ===== KEYFRAME ANIMATIONS ===== */
+@keyframes kenBurns {
+  0%   { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(201, 168, 76, 0); } 
+}
+
+.anim-slide-in  { animation: slideInLeft 0.8s cubic-bezier(0.23, 1, 0.32, 1) both; }
+.anim-fade-up   { animation: fadeUp 0.7s ease both; }
+
+/* ===== BUTTONS ===== */
+.btn-play {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  border: 1.5px solid var(--accent-parchment);
+  border-radius: 999px;
+  font-family: var(--font-nav);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  background: transparent;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-play::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(201, 168, 76, 0.6) 50%,
+    transparent 100%);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-play:hover {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: #0D0B0A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201, 168, 76, 0.35);
+}
+
+.btn-play:hover::before {
+  opacity: 0;
+}

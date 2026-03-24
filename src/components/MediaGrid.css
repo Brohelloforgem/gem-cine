@@ -1,0 +1,43 @@
+/* ===== MEDIA GRID ===== */
+.mgrid {
+  padding-top: 2rem;
+  padding-bottom: 10rem;
+}
+
+.mgrid__title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  position: relative;
+  padding-left: 20px;
+}
+
+.mgrid__title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 55%;
+  background: var(--accent-gold);
+  border-radius: 2px;
+}
+
+.mgrid__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px 14px;
+}
+
+.mgrid__empty {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  border: 1px dashed rgba(201, 168, 76, 0.2);
+  border-radius: var(--radius-md);
+}
