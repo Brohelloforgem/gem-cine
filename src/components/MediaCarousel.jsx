@@ -27,7 +27,7 @@ export default function MediaCarousel({ title, items, onPlay }) {
       <div className="carousel__track-wrap">
         <div className="carousel__track" ref={rowRef}>
           {items.map((item, i) => (
-            <div key={item.id + '-' + i} className="carousel__item">
+            <div key={item.id ? `${item.id}-${i}` : i} className="carousel__item">
               <MediaCard item={item} onPlay={onPlay} index={i} />
             </div>
           ))}

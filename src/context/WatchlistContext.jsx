@@ -13,6 +13,7 @@ export function WatchlistProvider({ children }) {
   }, [watchlist]);
 
   const toggleWatchlist = (item) => {
+    if (!item || !item.id) return;
     setWatchlist((prev) => {
       const isExist = prev.find((i) => i.id === item.id);
       if (isExist) {

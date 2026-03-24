@@ -74,7 +74,15 @@ function App() {
       return <div className="page-content"><MediaGrid title="TV Shows" items={tvShows} onPlay={handlePlay} /></div>;
     }
     if (activeCategory === 'movie') {
-      return <div className="page-content"><MediaGrid title="Movies" items={[...action, ...comedy, ...horror]} onPlay={handlePlay} /></div>;
+      // Remove duplicates when merging genre arrays using a single-pass filter
+      const allMovies = [...action, ...comedy, ...horror];
+      const seen = new Set();
+      const movieItems = allMovies.filter(m => {
+        if (!m.id || seen.has(m.id)) return false;
+        seen.add(m.id);
+        return true;
+      });
+      return <div className="page-content"><MediaGrid title="Movies" items={movieItems} onPlay={handlePlay} /></div>;
     }
     if (activeCategory === 'popular') {
       return <div className="page-content"><MediaGrid title="New & Popular" items={trending} onPlay={handlePlay} /></div>;

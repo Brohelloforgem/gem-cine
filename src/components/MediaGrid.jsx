@@ -18,7 +18,7 @@ export default function MediaGrid({ title, items, onPlay }) {
       <h2 className="mgrid__title">{title}</h2>
       <div className="mgrid__grid">
         {items.map((item, i) => (
-          <MediaCard key={item.id + '-grid-' + i} item={item} onPlay={onPlay} index={i} />
+          <MediaCard key={item.id ? `${item.id}-grid-${i}` : i} item={item} onPlay={onPlay} index={i} />
         ))}
       </div>
     </div>

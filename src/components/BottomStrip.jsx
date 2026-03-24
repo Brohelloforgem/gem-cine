@@ -12,20 +12,20 @@ export default function BottomStrip({ items = [], onPlay }) {
   return (
     <div className="bstrip glass">
       {strip.map((item, i) => (
-        <div key={item.id} className="bstrip__item" onClick={() => onPlay(item)}>
+        <div key={item.id ? `${item.id}-bstrip` : i} className="bstrip__item" onClick={() => onPlay(item)}>
           {i > 0 && <div className="bstrip__divider" />}
           <div className="bstrip__content">
             <img
               className="bstrip__thumb"
-              src={item.poster}
-              alt={item.title}
+              src={item.poster || 'https://via.placeholder.com/500x750?text=No+Poster'}
+              alt={item.title || 'Media Poster'}
               loading="lazy"
             />
             <div className="bstrip__info">
               <p className="bstrip__genre">
                 {item.mediaType === 'tv' ? 'Series' : 'Film'}
               </p>
-              <h4 className="bstrip__title">{item.title}</h4>
+              <h4 className="bstrip__title">{item.title || 'Untitled'}</h4>
               <button className="bstrip__more">MORE ▶</button>
             </div>
           </div>
