@@ -127,17 +127,22 @@
 .hero__watchlist-btn {
   font-family: var(--font-nav);
   font-size: 0.8rem;
+  font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-muted);
-  border: 1px solid rgba(138, 127, 114, 0.4);
+  border: none;
+  background: rgba(201, 168, 76, 0.05); /* Ghost style fallback */
   border-radius: 999px;
   padding: 13px 28px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: var(--transition-smooth);
 }
 
 .hero__watchlist-btn:hover,
 .hero__watchlist-btn--added {
   color: var(--accent-gold);
-  border-color: var(--accent-gold);
+  background: rgba(201, 168, 76, 0.15);
+  box-shadow: 0 4px 15px rgba(201, 168, 76, 0.1);
 }

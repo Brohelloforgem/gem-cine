@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import MediaCarousel from './components/MediaCarousel';
 import MediaGrid from './components/MediaGrid';
 import PlayerModal from './components/PlayerModal';
+import EditorialModal from './components/EditorialModal';
 import BottomStrip from './components/BottomStrip';
 import { LeftSidebar, RightSidebar } from './components/Sidebars';
 import { fetchTrending, fetchMoviesByGenre, fetchTvShows, searchMedia } from './services/tmdb';
@@ -24,6 +25,7 @@ function App() {
   const [isSearching, setIsSearching] = useState(false);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [activeFeature, setActiveFeature] = useState(null);
   const { watchlist } = useWatchlist();
 
   useEffect(() => {
@@ -116,7 +118,7 @@ function App() {
 
       {/* Editorial sidebars */}
       <LeftSidebar activeSection={activeSection} onDotClick={setActiveSection} />
-      <RightSidebar />
+      <RightSidebar onFeatureClick={setActiveFeature} />
 
       <main className="app-main">
         {renderContent()}
@@ -129,6 +131,10 @@ function App() {
 
       {selectedMovie && (
         <PlayerModal movie={selectedMovie} onClose={closePlayer} />
+      )}
+
+      {activeFeature && (
+        <EditorialModal title={activeFeature} onClose={() => setActiveFeature(null)} />
       )}
     </div>
   );

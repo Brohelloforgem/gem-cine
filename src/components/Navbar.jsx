@@ -5,9 +5,12 @@ export default function Navbar({ onSearch, onCategoryChange, activeCategory }) {
   const [scrolled, setScrolled] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 60);
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -20,10 +23,11 @@ export default function Navbar({ onSearch, onCategoryChange, activeCategory }) {
   };
 
   const navLinks = [
-    { id: 'home',    label: 'Home' },
-    { id: 'popular', label: 'Category' },
-    { id: 'movie',   label: 'Movies' },
-    { id: 'tv',      label: 'Cinema' },
+    { id: 'home',      label: 'Home' },
+    { id: 'popular',   label: 'Category' },
+    { id: 'movie',     label: 'Movies' },
+    { id: 'tv',        label: 'Cinema' },
+    { id: 'watchlist', label: 'My Favorites' }, // added for mobile/desktop
   ];
 
   return (
@@ -66,9 +70,34 @@ export default function Navbar({ onSearch, onCategoryChange, activeCategory }) {
             ⌕
           </button>
         )}
-        <button className="navbar__hamburger" title="Menu">
+        <button 
+          className="navbar__hamburger" 
+          title="Menu"
+          onClick={() => setMobileMenuOpen(true)}
+        >
           <span /><span /><span />
         </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`navbar__mobile-overlay ${mobileMenuOpen ? 'navbar__mobile-overlay--open' : ''}`}>
+        <div className="navbar__mobile-close" onClick={() => setMobileMenuOpen(false)}>×</div>
+        <ul className="navbar__mobile-links">
+          {navLinks.map(link => (
+            <li key={`mobile-${link.id}`} className="navbar__mobile-item">
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onCategoryChange(link.id);
+                  setMobileMenuOpen(false);
+                }}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </nav>
   );

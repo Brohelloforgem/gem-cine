@@ -46,22 +46,21 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  border: 2px solid var(--accent-gold);
-  color: var(--accent-gold);
+  border: none;
+  color: var(--bg-primary);
   font-size: 1.1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: var(--transition-smooth);
-  background: transparent;
+  background: var(--accent-parchment);
 }
 
 .mcard__play:hover {
   background: var(--accent-gold);
-  color: #0D0B0A;
+  transform: scale(1.1);
 }
 
-/* Watchlist badge */
 .mcard__watchlist {
   position: absolute;
   top: 8px;
@@ -69,9 +68,9 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(13, 11, 10, 0.7);
+  background: rgba(13, 11, 10, 0.4);
   color: var(--text-muted);
-  border: 1px solid rgba(138, 127, 114, 0.4);
+  border: none;
   font-size: 1rem;
   display: flex;
   align-items: center;
@@ -79,7 +78,8 @@
   opacity: 0;
   transform: scale(0.8);
   transition: var(--transition-smooth);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .mcard:hover .mcard__watchlist {
@@ -87,9 +87,13 @@
   transform: scale(1);
 }
 
+.mcard__watchlist:hover {
+  background: rgba(13, 11, 10, 0.7);
+  color: var(--text-primary);
+}
+
 .mcard__watchlist--added {
   color: var(--accent-gold) !important;
-  border-color: var(--accent-gold) !important;
   opacity: 1 !important;
   transform: scale(1) !important;
 }

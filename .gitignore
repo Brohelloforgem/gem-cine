@@ -12,6 +12,8 @@ dist
 dist-ssr
 build/
 *.local
+temp_repo/
+.netlify/
 
 # Editor directories and files
 .vscode/*

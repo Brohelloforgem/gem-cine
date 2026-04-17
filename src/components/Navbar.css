@@ -15,10 +15,11 @@
 }
 
 .navbar--scrolled {
-  background: rgba(13, 11, 10, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  background: rgba(13, 11, 10, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  /* Removed border-bottom for a softer "No-Line" feel, adding subtle shadow instead */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 /* Logo */
@@ -107,16 +108,23 @@
 }
 
 .navbar__search-input {
-  background: rgba(201, 168, 76, 0.08);
-  border: 1px solid var(--accent-gold);
+  background: rgba(201, 168, 76, 0.04);
+  border: 1px solid rgba(201, 168, 76, 0.15);
   border-radius: 999px;
-  padding: 6px 16px;
+  padding: 8px 20px;
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: 0.8rem;
   outline: none;
   width: 220px;
   letter-spacing: 0.04em;
+  transition: var(--transition-quick);
+}
+
+.navbar__search-input:focus {
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.1);
 }
 
 .navbar__search-input::placeholder {
@@ -141,4 +149,64 @@
 
 .navbar__hamburger:hover span {
   background: var(--accent-gold);
+}
+
+/* Mobile Overlay */
+.navbar__mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 5, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.navbar__mobile-overlay--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.navbar__mobile-close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 3rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition-quick);
+  line-height: 1;
+}
+
+.navbar__mobile-close:hover {
+  color: var(--accent-gold);
+  transform: scale(1.1);
+}
+
+.navbar__mobile-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.navbar__mobile-item a {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.navbar__mobile-item a:hover {
+  color: var(--accent-gold);
 }

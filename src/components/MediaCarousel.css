@@ -1,35 +1,20 @@
-/* ===== CAROUSEL ===== */
 .carousel {
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
 }
 
 .carousel__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .carousel__title {
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.45rem;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: 0.03em;
-  position: relative;
-  padding-left: 18px;
-}
-
-.carousel__title::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 60%;
-  background: var(--accent-gold);
-  border-radius: 2px;
+  letter-spacing: 0.04em;
 }
 
 .carousel__nav {
@@ -38,9 +23,9 @@
 }
 
 .carousel__arrow {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--glass-border);
+  width: 40px;
+  height: 40px;
+  border: none;
   border-radius: 50%;
   color: var(--text-muted);
   font-size: 1.4rem;
@@ -53,9 +38,10 @@
 }
 
 .carousel__arrow:hover {
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
-  background: rgba(201, 168, 76, 0.12);
+  color: #000;
+  background: var(--accent-gold);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(201, 168, 76, 0.2);
 }
 
 .carousel__track-wrap {
