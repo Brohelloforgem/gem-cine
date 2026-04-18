@@ -1012,3 +1012,33 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.pm-source-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.04);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.pm-source-label { font-size: 12px; color: #aaa; margin-right: auto; }
+.pm-source-error { font-size: 11px; color: #ff6b6b; }
+.pm-source-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+.pm-source-btn {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: transparent;
+  color: #aaa;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pm-source-btn:hover { border-color: #c9a84c; color: #c9a84c; }
+.pm-source-btn--active {
+  background: #c9a84c;
+  border-color: #c9a84c;
+  color: #000;
+  font-weight: 600;
+}

@@ -45,6 +45,13 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
   const [selectedLang, setLang]       = useState('en');
   const [isCcOn, setIsCcOn]           = useState(true);
   const [tooltip, setTooltip]         = useState('');
+  const [sourceIndex, setSourceIndex] = useState(0);
+  const [iframeError, setIframeError] = useState(false);
+
+  useEffect(() => {
+    setSourceIndex(0);
+    setIframeError(false);
+  }, [initialMovie.id, selectedSeason, activeEp]);
 
   const iframeRef = useRef(null);
 
@@ -103,31 +110,6 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
     });
   }, [selectedSeason, isTv, initialMovie.id, details?.episodes]);
 
-  if (!movie) return null;
-
-  const scorePercent = Math.round((movie.rating / 10) * 100);
-  const year = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
-  const currentEpNum = episodes[activeEp]?.number || 1;
-
-  // Build Player URL with options
-  const getPlayerUrl = () => {
-    let baseUrl = movie.mediaType === 'tv' 
-      ? `https://vidking.org/embed/tv?tmdb=${movie.id}&season=${selectedSeason}&e=${currentEpNum}`
-      : `https://vidking.org/embed/movie?tmdb=${movie.id}`;
-
-    const url = new URL(baseUrl);
-    
-    // Some basic params to keep embed clean
-    url.searchParams.set('autoplay', '1');
-    if (isCcOn) {
-      url.searchParams.set('ds_langs', selectedLang);
-    }
-    
-    return url.toString();
-  };
-
-  const playerUrl = getPlayerUrl();
-
   // Handle caption size postMessage
   useEffect(() => {
     if (iframeRef.current && isPlaying) {
@@ -138,6 +120,60 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
     }
   }, [captionSize, isPlaying]);
 
+  if (!movie) return null;
+
+  const scorePercent = Math.round((movie.rating / 10) * 100);
+  const year = movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '';
+  const currentEpNum = episodes[activeEp]?.number || 1;
+
+  const SOURCES = [
+    {
+      name: 'VidSrc Pro',
+      movie: (id) => `https://vidsrc.pro/embed/movie/${id}`,
+      tv: (id, s, e) => `https://vidsrc.pro/embed/tv/${id}/${s}/${e}`,
+    },
+    {
+      name: 'VidSrc.me',
+      movie: (id) => `https://vidsrc.me/embed/movie?tmdb=${id}`,
+      tv: (id, s, e) => `https://vidsrc.me/embed/tv?tmdb=${id}&season=${s}&episode=${e}`,
+    },
+    {
+      name: '2Embed',
+      movie: (id) => `https://www.2embed.cc/embed/${id}`,
+      tv: (id, s, e) => `https://www.2embed.cc/embedtv/${id}&s=${s}&e=${e}`,
+    },
+    {
+      name: 'SuperEmbed',
+      movie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`,
+      tv: (id, s, e) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`,
+    },
+    {
+      name: 'EmbedSu',
+      movie: (id) => `https://embed.su/embed/movie/${id}`,
+      tv: (id, s, e) => `https://embed.su/embed/tv/${id}/${s}/${e}`,
+    },
+  ];
+
+  // Build Player URL with options
+  const getPlayerUrl = () => {
+    const src = SOURCES[sourceIndex] || SOURCES[0];
+    let baseUrl = isTv
+      ? src.tv(movie.id, selectedSeason, currentEpNum)
+      : src.movie(movie.id);
+
+    try {
+      const url = new URL(baseUrl);
+      url.searchParams.set('autoplay', '1');
+      if (isCcOn) {
+        url.searchParams.set('ds_langs', selectedLang);
+      }
+      return url.toString();
+    } catch {
+      return baseUrl;
+    }
+  };
+
+  const playerUrl = getPlayerUrl();
 
   return (
     <div className="pm-overlay" role="dialog" aria-modal="true">
@@ -223,17 +259,37 @@ export default function PlayerModal({ movie: initialMovie, onClose }) {
                   <div className="pm-player-container">
                     <div className="pm-player-wrapper">
                       <iframe
-                        key={playerUrl}
+                        key={`${playerUrl}-${sourceIndex}`}
                         ref={iframeRef}
                         src={playerUrl}
                         className="pm-iframe"
-                        allow="autoplay; encrypted-media; fullscreen"
+                        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                         allowFullScreen
-                        sandbox="allow-same-origin allow-scripts allow-forms allow-pointer-lock"
                         title={movie.title}
+                        onError={() => setIframeError(true)}
                       />
                     </div>
                     
+                    <div className="pm-source-bar">
+                      <span className="pm-source-label">
+                        Source: <strong>{SOURCES[sourceIndex]?.name}</strong>
+                      </span>
+                      {iframeError && (
+                        <span className="pm-source-error">⚠ This source failed to load</span>
+                      )}
+                      <div className="pm-source-btns">
+                        {SOURCES.map((src, i) => (
+                          <button
+                            key={src.name}
+                            className={`pm-source-btn ${i === sourceIndex ? 'pm-source-btn--active' : ''}`}
+                            onClick={() => { setSourceIndex(i); setIframeError(false); }}
+                          >
+                            {src.name}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
                     {/* Caption Control Bar */}
                     <div className="pm-caption-bar">
                       <div className="pm-cb-left">
